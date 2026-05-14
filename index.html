@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DWD — Drive With Data | Private Organisation Transport Management</title>
+  <meta name="description" content="DWD gives schools, colleges, and companies real-time GPS tracking, dual ETA intelligence, and full transport operations management in one platform. Built for India.">
+  <meta property="og:title" content="DWD — Drive With Data">
+  <meta property="og:description" content="Know where every vehicle is. Right now. Transport management built for private organisations.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ======================================
+       CSS VARIABLES — DWD DESIGN SYSTEM
+       ====================================== */
+    :root {
+      --color-bg: #0D1117;
+      --color-bg-alt: #F4F6F8;
+      --color-surface: #161B22;
+      --color-surface-2: #1C2333;
+      --color-primary: #E8F0FE;
+      --color-accent: #2D7DD2;
+      --color-accent-hover: #1A5FA8;
+      --color-text: #1A202C;
+      --color-text-muted: #6B7280;
+      --color-text-light: #A0AEC0;
+      --color-border: #2D3748;
+      --color-border-light: #E2E8F0;
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+
+      --font-display: 'Sora', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+
+      --section-padding: 104px 0;
+      --section-padding-mobile: 72px 0;
+      --container-max: 1200px;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+      --shadow-card-hover: 0 8px 30px rgba(0,0,0,0.12);
+      --shadow-button: 0 2px 8px rgba(45,125,210,0.25);
+
+      --transition-fast: 0.15s ease;
+      --transition-base: 0.25s ease;
+      --transition-slow: 0.4s ease;
+    }
+
+    /* ======================================
+       RESET & BASE
+       ====================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--color-text);
+      background: var(--color-bg);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ======================================
+       TYPOGRAPHY
+       ====================================== */
+    .font-display { font-family: var(--font-display); }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
+    h1 { font-size: clamp(38px, 5.5vw, 64px); font-weight: 800; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.01em; }
+    h3 { font-size: clamp(18px, 2vw, 22px); font-weight: 600; }
+
+    /* ======================================
+       LAYOUT UTILITIES
+       ====================================== */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-dark { background: var(--color-bg); }
+    .section-light { background: var(--color-bg-alt); }
+    .section-surface { background: var(--color-surface); }
+
+    .section-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 14px;
+    }
+    .section-title { margin-bottom: 16px; }
+    .section-subtitle {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      max-width: 580px;
+    }
+    .section-subtitle.centered { margin: 0 auto; text-align: center; }
+
+    /* ======================================
+       BUTTONS
+       ====================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-base);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+      box-shadow: var(--shadow-button);
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(45,125,210,0.4);
+    }
+    .btn-primary:focus-visible {
+      outline: 3px solid rgba(45,125,210,0.5);
+      outline-offset: 2px;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(232,240,254,0.2);
+      color: var(--color-primary);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(232,240,254,0.45);
+      background: rgba(232,240,254,0.05);
+    }
+    .btn-outline-dark {
+      background: transparent;
+      border: 1.5px solid var(--color-border-light);
+      color: var(--color-border-light);
+    }
+    .btn-outline-dark:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    .btn-lg { padding: 16px 36px; font-size: 16px; }
+
+    /* ======================================
+       NAVBAR
+       ====================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      transition: background var(--transition-slow), border-color var(--transition-slow), backdrop-filter var(--transition-slow);
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(22, 27, 34, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--color-border);
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .navbar__logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--color-primary);
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .navbar__logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      display: inline-block;
+    }
+    .navbar__nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .navbar__nav a:not(.btn) {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-light);
+      transition: color var(--transition-fast);
+    }
+    .navbar__nav a:not(.btn):hover { color: var(--color-primary); }
+    .navbar__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .navbar__toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-primary);
+      border-radius: 2px;
+      transition: all var(--transition-base);
+    }
+
+    /* ======================================
+       HERO
+       ====================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      background: var(--color-bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse 60% 60% at 75% 50%, rgba(45,125,210,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 20% 60%, rgba(45,125,210,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero__org-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .hero__tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      border: 1px solid var(--color-border);
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(45,125,210,0.05);
+    }
+    .hero h1 {
+      color: var(--color-primary);
+      margin-bottom: 24px;
+    }
+    .hero h1 span { color: var(--color-accent); }
+    .hero__sub {
+      font-size: 18px;
+      color: var(--color-text-light);
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+    .hero__ctas {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .hero__trust {
+      font-size: 13px;
+      color: var(--color-text-light);
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero__trust::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    /* Hero Dashboard Mockup */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .dashboard-mockup {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+      position: relative;
+    }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .mockup-dots { display: flex; gap: 6px; }
+    .mockup-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .mockup-dot:nth-child(1) { background: #FF5F57; }
+    .mockup-dot:nth-child(2) { background: #FEBC2E; }
+    .mockup-dot:nth-child(3) { background: #28C840; }
+    .mockup-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-light);
+      margin-left: 4px;
+    }
+    .mockup-status {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-success);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: var(--color-success);
+      border-radius: 50%;
+      animation: pulse-live 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* Map Tile */
+    .map-tile {
+      background: #0F1923;
+      border-radius: var(--radius-md);
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .map-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(45,125,210,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45,125,210,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .map-route {
+      position: absolute;
+      top: 50%; left: 15%;
+      width: 70%; height: 2px;
+      background: rgba(45,125,210,0.4);
+      transform: translateY(-50%) rotate(-5deg);
+    }
+    .map-route::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-accent) 40%, transparent);
+      transform: translateY(-50%);
+    }
+    .map-stop {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      border: 2px solid var(--color-surface);
+      transform: translate(-50%, -50%);
+    }
+    .map-stop:nth-child(3) { top: 48%; left: 20%; }
+    .map-stop:nth-child(4) { top: 46%; left: 42%; }
+    .map-stop:nth-child(5) { top: 44%; left: 64%; }
+    .map-stop:nth-child(6) { top: 42%; left: 83%; }
+    .map-vehicle {
+      position: absolute;
+      top: 47%; left: 52%;
+      transform: translate(-50%, -50%);
+      width: 28px; height: 28px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      border: 3px solid var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: vehicle-move 6s ease-in-out infinite;
+      z-index: 2;
+    }
+    .map-vehicle::after {
+      content: '';
+      position: absolute;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(45,125,210,0.3);
+      animation: ping 2s ease-out infinite;
+    }
+    @keyframes vehicle-move {
+      0%, 100% { left: 52%; top: 47%; }
+      50% { left: 56%; top: 45%; }
+    }
+    @keyframes ping {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    .map-vehicle svg { width: 14px; height: 14px; fill: white; }
+
+    /* ETA Panels */
+    .eta-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .eta-card {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+    .eta-card__label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: 6px;
+    }
+    .eta-card__stop {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-light);
+      margin-bottom: 4px;
+    }
+    .eta-card__time {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+    }
+    .eta-card__time.live { color: var(--color-success); }
+    .eta-card__badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-top: 4px;
+    }
+    .badge-scheduled {
+      background: rgba(160,174,192,0.12);
+      color: var(--color-text-light);
+    }
+    .badge-live {
+      background: rgba(16,185,129,0.12);
+      color: var(--color-success);
+    }
+    .trip-meta {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .trip-meta__label {
+      font-size: 11px;
+      color: var(--color-text-light);
+    }
+    .trip-meta__route {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+    }
+
+    /* Animate hero content */
+    .hero-animate { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s ease forwards; }
+    .hero-animate:nth-child(1) { animation-delay: 0.1s; }
+    .hero-animate:nth-child(2) { animation-delay: 0.2s; }
+    .hero-animate:nth-child(3) { animation-delay: 0.3s; }
+    .hero-animate:nth-child(4) { animation-delay: 0.4s; }
+    .hero-animate:nth-child(5) { animation-delay: 0.5s; }
+    .hero-animate:nth-child(6) { animation-delay: 0.6s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ======================================
+       STATS BAR
+       ====================================== */
+    .stats-bar {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: 40px 0;
+    }
+    .stats-bar__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 16px 24px;
+      border-right: 1px solid var(--color-border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item__number {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--color-primary);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-item__number span { color: var(--color-accent); }
+    .stat-item__label {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.4;
+    }
+
+    /* ======================================
+       PROBLEM SECTION
+       ====================================== */
+    .problem {
+      padding: var(--section-padding);
+      background: var(--color-bg-alt);
+    }
+    .problem__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .problem__content .section-eyebrow { color: var(--color-text-muted); }
+    .problem__content h2 { color: var(--color-text); margin-bottom: 20px; }
+    .problem__content p { color: var(--color-text-muted); font-size: 17px; line-height: 1.7; }
+    .problem__cards { display: flex; flex-direction: column; gap: 16px; }
+    .problem-card {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      border-left: 3px solid var(--color-border-light);
+      transition: all var(--transition-base);
+    }
+    .problem-card:hover {
+      border-left-color: var(--color-accent);
+      box-shadow: var(--shadow-card-hover);
+      transform: translateX(4px);
+    }
+    .problem-card__org {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 8px;
+    }
+    .problem-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .problem-card p {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ======================================
+       SOLUTION OVERVIEW
+       ====================================== */
+    .solution {
+      padding: var(--section-padding);
+      background: var(--color-bg);
+      text-align: center;
+    }
+    .solution h2 { color: var(--color-primary); margin-bottom: 16px; }
+    .solution .section-subtitle { color: var(--color-text-light); margin: 0 auto 64px; }
+    .surfaces-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .surface-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 36px 28px;
+      text-align: left;
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+    .surface-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-accent);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+    .surface-card:hover { border-color: rgba(45,125,210,0.3); transform: translateY(-4px); }
+    .surface-card:hover::before { opacity: 1; }
+    .surface-card__icon {
+      width: 48px; height: 48px;
+      background: rgba(45,125,210,0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .surface-card__icon svg { width: 24px; height: 24px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .surface-card__user {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 8px;
+    }
+    .surface-card h3 { color: var(--color-primary); margin-bottom: 10px; font-size: 18px; }
+    .surface-card p { color: var(--color-text-light); font-size: 14px; line-height: 1.6; }
+
+    /* ======================================
+       FEATURES
+       ====================================== */
+    .features {
+      padding: var(--section-padding);
+      background: var(--color-bg-alt);
+    }
+    .features__header { margin-bottom: 64px; }
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-base);
+      position: relative;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+      border-color: rgba(45,125,210,0.2);
+    }
+    .feature-card__icon {
+      width: 44px; height: 44px;
+      background: rgba(45,125,210,0.08);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .feature-card__icon svg { width: 22px; height: 22px; stroke: var(--color-accent); fill: none; stroke-width: 1.5; }
+    .feature-card h3 { color: var(--color-text); margin-bottom: 12px; font-size: 18px; }
+    .feature-card p { color: var(--color-text-muted); font-size: 15px; line-height: 1.65; }
+
+    /* ======================================
+       HOW IT WORKS
+       ====================================== */
+    .how-it-works {
+      padding: var(--section-padding);
+      background: var(--color-bg);
+    }
+    .how-it-works h2 { color: var(--color-primary); }
+    .how-it-works .section-subtitle { color: var(--color-text-light); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 64px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 24px);
+      right: calc(16.66% + 24px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--color-accent), rgba(45,125,210,0.2));
+    }
+    .step-item { text-align: center; }
+    .step-number {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 8px rgba(45,125,210,0.12);
+    }
+    .step-item h3 { color: var(--color-primary); margin-bottom: 12px; }
+    .step-item p { color: var(--color-text-light); font-size: 15px; line-height: 1.65; }
+    .how-it-works__cta {
+      text-align: center;
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .how-it-works__cta small {
+      font-size: 13px;
+      color: var(--color-text-light);
+    }
+
+    /* ======================================
+       USE CASES
+       ====================================== */
+    .use-cases {
+      padding: var(--section-padding);
+      background: var(--color-bg-alt);
+    }
+    .use-cases__header { margin-bottom: 64px; }
+    .use-cases__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .use-case-card {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-xl);
+      padding: 36px 28px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+    }
+    .use-case-card__type {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .use-case-card__type::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-accent);
+    }
+    .use-case-card h3 { color: var(--color-text); margin-bottom: 14px; font-size: 19px; }
+    .use-case-card p { color: var(--color-text-muted); font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
+    .use-case-card__quote {
+      margin-top: auto;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      border-left: 3px solid var(--color-accent);
+    }
+    .use-case-card__quote blockquote {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--color-text);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .use-case-card__quote cite {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+
+    /* ======================================
+       PRICING
+       ====================================== */
+    .pricing {
+      padding: var(--section-padding);
+      background: var(--color-bg);
+    }
+    .pricing h2 { color: var(--color-primary); }
+    .pricing .section-subtitle { color: var(--color-text-light); }
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      position: relative;
+      transition: all var(--transition-base);
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card--featured {
+      border: 2px solid var(--color-accent);
+      box-shadow: 0 0 0 4px rgba(45,125,210,0.12), 0 24px 48px rgba(0,0,0,0.3);
+    }
+    .pricing-card__badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-card__plan {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+    .pricing-card__for {
+      font-size: 14px;
+      color: var(--color-text-light);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .pricing-card__features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .pricing-card__feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.5;
+    }
+    .pricing-card__feature::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5l2 2 4-4' stroke='%2310B981' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .pricing-card__limit {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+    .pricing-card__limit-label {
+      font-size: 13px;
+      color: var(--color-text-light);
+      margin-bottom: 28px;
+    }
+    .pricing-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .pricing-note {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 14px;
+      color: var(--color-text-light);
+    }
+
+    /* ======================================
+       FAQ
+       ====================================== */
+    .faq {
+      padding: var(--section-padding);
+      background: var(--color-bg-alt);
+    }
+    .faq__inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .faq h2 { color: var(--color-text); margin-bottom: 16px; }
+    .faq .section-subtitle { color: var(--color-text-muted); margin-bottom: 56px; }
+    .faq__list { display: flex; flex-direction: column; gap: 2px; }
+    .faq__item {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color var(--transition-base);
+    }
+    .faq__item[open] { border-color: rgba(45,125,210,0.3); }
+    .faq__question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+      cursor: pointer;
+      list-style: none;
+      gap: 16px;
+    }
+    .faq__question::-webkit-details-marker { display: none; }
+    .faq__question::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      transition: transform var(--transition-base);
+    }
+    .faq__item[open] .faq__question::after {
+      content: '−';
+    }
+    .faq__answer {
+      padding: 0 24px 22px;
+      font-size: 15px;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* ======================================
+       FINAL CTA
+       ====================================== */
+    .final-cta {
+      padding: var(--section-padding);
+      background: var(--color-bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(45,125,210,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .final-cta h2 { color: var(--color-primary); margin-bottom: 20px; }
+    .final-cta p { color: var(--color-text-light); font-size: 18px; line-height: 1.65; margin-bottom: 40px; }
+    .final-cta__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .final-cta__note { font-size: 13px; color: var(--color-text-light); opacity: 0.6; }
+
+    /* ======================================
+       FOOTER
+       ====================================== */
+    .footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: 64px 0 40px;
+    }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer__brand .navbar__logo { font-size: 20px; margin-bottom: 12px; }
+    .footer__tagline { font-size: 14px; color: var(--color-text-light); line-height: 1.6; max-width: 240px; }
+    .footer__col-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: 20px;
+    }
+    .footer__links { display: flex; flex-direction: column; gap: 12px; }
+    .footer__links a {
+      font-size: 14px;
+      color: var(--color-text-light);
+      transition: color var(--transition-fast);
+      opacity: 0.7;
+    }
+    .footer__links a:hover { color: var(--color-primary); opacity: 1; }
+    .footer__bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer__copy { font-size: 13px; color: var(--color-text-light); opacity: 0.5; }
+    .footer__legal { display: flex; gap: 24px; }
+    .footer__legal a { font-size: 13px; color: var(--color-text-light); opacity: 0.5; transition: opacity var(--transition-fast); }
+    .footer__legal a:hover { opacity: 0.9; }
+
+    /* ======================================
+       SCROLL ANIMATIONS
+       ====================================== */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-animate-delay="1"] { transition-delay: 0.1s; }
+    [data-animate-delay="2"] { transition-delay: 0.2s; }
+    [data-animate-delay="3"] { transition-delay: 0.3s; }
+    [data-animate-delay="4"] { transition-delay: 0.4s; }
+    [data-animate-delay="5"] { transition-delay: 0.5s; }
+
+    /* ======================================
+       MOBILE RESPONSIVE
+       ====================================== */
+    @media (max-width: 1024px) {
+      .features__grid { grid-template-columns: repeat(2, 1fr); }
+      .footer__grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 38px; }
+      h2 { font-size: 28px; }
+      .navbar__nav {
+        display: none;
+        position: fixed;
+        top: 68px; left: 0; right: 0;
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 16px 24px 24px;
+      }
+      .navbar__nav.open { display: flex; }
+      .navbar__nav a:not(.btn) {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--color-border);
+        font-size: 15px;
+      }
+      .navbar__nav .btn { margin-top: 12px; text-align: center; justify-content: center; }
+      .navbar__toggle { display: flex; }
+      .hero { padding: 100px 0 64px; min-height: auto; }
+      .hero__grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero__visual { order: -1; }
+      .dashboard-mockup { max-width: 100%; }
+      .stats-bar__grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item { border-bottom: 1px solid var(--color-border); padding: 20px 16px; }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
+      .problem__inner { grid-template-columns: 1fr; gap: 40px; }
+      .surfaces-grid { grid-template-columns: 1fr; gap: 16px; }
+      .features__grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+      .steps-grid::before { display: none; }
+      .use-cases__grid { grid-template-columns: 1fr; gap: 24px; }
+      .pricing__grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer__grid { grid-template-columns: 1fr 1fr; }
+      .footer__brand { grid-column: 1 / -1; }
+      .footer__bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .hero__ctas { flex-direction: column; align-items: flex-start; }
+      .final-cta__actions { flex-direction: column; align-items: center; }
+      :root {
+        --section-padding: 72px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-bar__grid { grid-template-columns: 1fr 1fr; }
+      .eta-panels { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="navbar" id="navbar" role="banner">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo" aria-label="DWD home">
+        DWD<span class="navbar__logo-dot"></span>
+      </a>
+      <button class="navbar__toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="navbar__nav" id="mainNav" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact" class="btn btn-primary">Request a Demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" id="hero" aria-label="Hero section">
+      <div class="container">
+        <div class="hero__grid">
+          <div class="hero__content">
+            <div class="hero__org-tags hero-animate">
+              <span class="hero__tag">Schools</span>
+              <span class="hero__tag">Colleges</span>
+              <span class="hero__tag">Companies</span>
+            </div>
+            <h1 class="hero-animate">
+              Know where every bus is.<br><span>Right now.</span>
+            </h1>
+            <p class="hero__sub hero-animate">
+              DWD is the transport management platform built for private organisations — live GPS tracking, dual ETA intelligence, and complete route and driver control in one place.
+            </p>
+            <div class="hero__ctas hero-animate">
+              <a href="#contact" class="btn btn-primary btn-lg">Request a Demo</a>
+              <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
+            </div>
+            <p class="hero__trust hero-animate">Setup in days, not months &nbsp;·&nbsp; No IT team required</p>
+          </div>
+
+          <div class="hero__visual hero-animate">
+            <div class="dashboard-mockup" role="img" aria-label="DWD admin dashboard showing live bus tracking with dual ETA display">
+              <div class="mockup-header">
+                <div class="mockup-dots">
+                  <div class="mockup-dot"></div>
+                  <div class="mockup-dot"></div>
+                  <div class="mockup-dot"></div>
+                </div>
+                <span class="mockup-title">DWD Admin Dashboard — Live Tracking</span>
+                <span class="mockup-status"><span class="live-dot"></span>3 Active Trips</span>
+              </div>
+
+              <div class="map-tile" aria-hidden="true">
+                <div class="map-grid"></div>
+                <div class="map-route"></div>
+                <div class="map-stop"></div>
+                <div class="map-stop"></div>
+                <div class="map-stop"></div>
+                <div class="map-stop"></div>
+                <div class="map-vehicle">
+                  <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5h10l1 3H1L2 5z"/><circle cx="4" cy="9.5" r="1.5"/><circle cx="10" cy="9.5" r="1.5"/></svg>
+                </div>
+              </div>
+
+              <div class="eta-panels">
+                <div class="eta-card">
+                  <div class="eta-card__label">Scheduled ETA</div>
+                  <div class="eta-card__stop">Stop 4 — Koramangala</div>
+                  <div class="eta-card__time">8:42 AM</div>
+                  <span class="eta-card__badge badge-scheduled">Based on schedule</span>
+                </div>
+                <div class="eta-card">
+                  <div class="eta-card__label">Live ETA</div>
+                  <div class="eta-card__stop">Stop 4 — Koramangala</div>
+                  <div class="eta-card__time live">8:39 AM</div>
+                  <span class="eta-card__badge badge-live">● Updating live</span>
+                </div>
+              </div>
+
+              <div class="trip-meta">
+                <span class="trip-meta__label">Route 3A · Route 7 · Route 12B</span>
+                <span class="trip-meta__route">View All →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STATS BAR
+         ============================================================ -->
+    <section class="stats-bar" aria-label="Platform performance statistics">
+      <div class="container">
+        <div class="stats-bar__grid">
+          <div class="stat-item" data-animate>
+            <div class="stat-item__number"><span>&lt;</span>3s</div>
+            <div class="stat-item__label">GPS update latency<br>driver to passenger screen</div>
+          </div>
+          <div class="stat-item" data-animate data-animate-delay="1">
+            <div class="stat-item__number">3</div>
+            <div class="stat-item__label">Dedicated surfaces — admin,<br>driver app, passenger app</div>
+          </div>
+          <div class="stat-item" data-animate data-animate-delay="2">
+            <div class="stat-item__number">2<span>×</span></div>
+            <div class="stat-item__label">ETA layers — scheduled baseline<br>plus real-time live estimate</div>
+          </div>
+          <div class="stat-item" data-animate data-animate-delay="3">
+            <div class="stat-item__number">99<span>%</span></div>
+            <div class="stat-item__label">Live tracking uptime<br>target during active trips</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROBLEM
+         ============================================================ -->
+    <section class="problem" id="problem" aria-label="The transport management problem">
+      <div class="container">
+        <div class="problem__inner">
+          <div class="problem__content">
+            <p class="section-eyebrow">Sound Familiar?</p>
+            <h2>Transport that works on paper.<br>Fails in practice.</h2>
+            <p>Most private organisations run their transport operations the same way they did a decade ago — phone calls to drivers, WhatsApp groups for updates, spreadsheets for route planning. When something goes wrong, you find out from a complaint, not a dashboard.</p>
+          </div>
+          <div class="problem__cards">
+            <div class="problem-card" data-animate>
+              <div class="problem-card__org">School</div>
+              <h3>A parent calls at 7:45 AM asking where the bus is. You have no idea.</h3>
+              <p>No live location, no ETA, no way to tell parents when to expect their child home. Every delay becomes a crisis.</p>
+            </div>
+            <div class="problem-card" data-animate data-animate-delay="1">
+              <div class="problem-card__org">College</div>
+              <h3>Students wait 40 minutes at a stop because no one knows the bus broke down.</h3>
+              <p>Without signal loss detection, a late driver looks identical to a missing one. You're always reacting.</p>
+            </div>
+            <div class="problem-card" data-animate data-animate-delay="2">
+              <div class="problem-card__org">Company</div>
+              <h3>HR spends every Monday fielding employee complaints about missed pickups.</h3>
+              <p>Shift-based transport has zero visibility. SLA reporting is manual. Compliance is guesswork.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SOLUTION OVERVIEW
+         ============================================================ -->
+    <section class="solution" id="solution" aria-label="The DWD solution">
+      <div class="container">
+        <p class="section-eyebrow">Introducing DWD</p>
+        <h2 style="color: var(--color-primary);">One platform. Every surface your transport needs.</h2>
+        <p class="section-subtitle">DWD connects your admin team, your drivers, and your passengers in a single real-time system — no stitching, no phone calls, no guessing.</p>
+
+        <div class="surfaces-grid">
+          <div class="surface-card" data-animate>
+            <div class="surface-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="surface-card__user">For Admins</div>
+            <h3>Web Admin Dashboard</h3>
+            <p>Full operational control — manage routes, vehicles, drivers, and trips from a single dashboard. Watch every active trip on a live map, handle join requests, and get alerted the moment something goes wrong.</p>
+          </div>
+          <div class="surface-card" data-animate data-animate-delay="1">
+            <div class="surface-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-linecap="round" stroke-width="2.5"/></svg>
+            </div>
+            <div class="surface-card__user">For Drivers</div>
+            <h3>Driver Mobile App</h3>
+            <p>Built for simplicity. One tap to start a trip, automatic GPS sharing in the background, and an in-app alarm if connectivity drops. Drivers need zero training to be operational from day one.</p>
+          </div>
+          <div class="surface-card" data-animate data-animate-delay="2">
+            <div class="surface-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="surface-card__user">For Passengers</div>
+            <h3>Passenger Mobile App</h3>
+            <p>Live bus location on a map, scheduled ETA and live ETA side by side, and a GPS signal lost indicator so there's never any uncertainty. Students and employees always know exactly when to be at the stop.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FEATURES
+         ============================================================ -->
+    <section class="features" id="features" aria-label="DWD platform features">
+      <div class="container">
+        <div class="features__header">
+          <p class="section-eyebrow">Platform Capabilities</p>
+          <h2 style="color: var(--color-text);">Every tool your transport operation needs — nothing it doesn't.</h2>
+          <p class="section-subtitle" style="color: var(--color-text-muted);">Purpose-built for private organisations. Not a generic fleet tracker with your logo on it.</p>
+        </div>
+        <div class="features__grid">
+          <article class="feature-card" data-animate>
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+            </div>
+            <h3>Live GPS Tracking</h3>
+            <p>Driver app sends GPS coordinates every 5–10 seconds via SignalR WebSockets. Updates reach every connected screen — admin dashboard and passenger app — in under 3 seconds. No refresh required.</p>
+          </article>
+          <article class="feature-card" data-animate data-animate-delay="1">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Dual ETA Intelligence</h3>
+            <p>Two ETA layers shown simultaneously. Scheduled ETA is the static baseline calculated at trip creation. Live ETA recalculates every GPS cycle from the driver's actual position and rolling average speed. Passengers always know both.</p>
+          </article>
+          <article class="feature-card" data-animate data-animate-delay="2">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            </div>
+            <h3>Route &amp; Stop Management</h3>
+            <p>Build your route network once. Define stops with GPS coordinates, set their sequence, and assign multiple trips to the same route at different times. Morning and evening runs, weekday-only schedules — all managed from the dashboard.</p>
+          </article>
+          <article class="feature-card" data-animate data-animate-delay="1">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3>Driver Management</h3>
+            <p>Invite drivers via email or SMS. Secure token links — no self-registration. Manage driver profiles, assign vehicles, track trip history, and suspend or reinstate access in one click. Drivers join in minutes, not days.</p>
+          </article>
+          <article class="feature-card" data-animate data-animate-delay="2">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Passenger Management</h3>
+            <p>Three onboarding paths — direct email invite, SMS link, or a shareable public join link with a custom form. Approve or reject requests with a reason. Assign passengers to routes and stops. Full control over who sees what.</p>
+          </article>
+          <article class="feature-card" data-animate data-animate-delay="3">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>GPS Signal Loss Handling</h3>
+            <p>If GPS drops for more than 30 seconds, the system responds automatically — passenger apps show last known location with a signal lost indicator, driver apps trigger an audio alarm, and admin dashboards surface a real-time alert. No manual intervention required.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOW IT WORKS
+         ============================================================ -->
+    <section class="how-it-works" id="how-it-works" aria-label="How DWD works">
+      <div class="container">
+        <p class="section-eyebrow">Getting Started</p>
+        <h2>Up and running in three steps.</h2>
+        <p class="section-subtitle">No IT team. No months-long implementation. Your DWD team handles onboarding — you just show up and manage.</p>
+
+        <div class="steps-grid">
+          <div class="step-item" data-animate>
+            <div class="step-number" aria-label="Step 1">1</div>
+            <h3>Set Up Your Organisation</h3>
+            <p>Register your organisation, select the right plan, and configure your routes, stops, and vehicles in the admin dashboard. The structure maps directly to how you already operate — no reinvention required.</p>
+          </div>
+          <div class="step-item" data-animate data-animate-delay="2">
+            <div class="step-number" aria-label="Step 2">2</div>
+            <h3>Invite Drivers &amp; Passengers</h3>
+            <p>Send secure invite links to drivers via email or SMS — they create an account and are linked to your org instantly. Share the passenger join link via WhatsApp or a notice board. Approvals happen in the admin dashboard.</p>
+          </div>
+          <div class="step-item" data-animate data-animate-delay="4">
+            <div class="step-number" aria-label="Step 3">3</div>
+            <h3>Go Live with Full Visibility</h3>
+            <p>Schedule trips and watch them go active. Every connected passenger sees live location and dual ETA from the moment the driver taps Start. Admins see everything on one map. The daily chaos becomes a dashboard.</p>
+          </div>
+        </div>
+
+        <div class="how-it-works__cta">
+          <a href="#contact" class="btn btn-primary btn-lg">Request a Demo</a>
+          <small>We'll walk you through setup on your first call.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         USE CASES
+         ============================================================ -->
+    <section class="use-cases" id="use-cases" aria-label="DWD use cases by organisation type">
+      <div class="container">
+        <div class="use-cases__header">
+          <p class="section-eyebrow">Built For Your Org Type</p>
+          <h2 style="color: var(--color-text);">Your transport problem is specific. So is our solution.</h2>
+          <p class="section-subtitle" style="color: var(--color-text-muted);">Whether you run 3 school buses or 20 corporate cabs, DWD is built to fit how your organisation actually operates.</p>
+        </div>
+        <div class="use-cases__grid">
+          <div class="use-case-card" data-animate>
+            <div class="use-case-card__type">School</div>
+            <h3>End parent anxiety before the school day starts.</h3>
+            <p>Parents know exactly where the bus is and when it arrives at their stop. Drivers are accountable — their GPS is live from the moment they start. Admins can see every active route on one screen, with instant alerts for signal loss or delays.</p>
+            <div class="use-case-card__quote">
+              <blockquote>"Before DWD, I'd get 20 WhatsApp messages before 8 AM asking about the bus. Now parents just open the app."</blockquote>
+              <cite>— Transport Coordinator, CBSE School, Bengaluru [Placeholder — replace with real testimonial]</cite>
+            </div>
+          </div>
+          <div class="use-case-card" data-animate data-animate-delay="1">
+            <div class="use-case-card__type">College / University</div>
+            <h3>Students stop waiting. Complaints stop reaching your desk.</h3>
+            <p>With multiple shift timings and large geographic spread, college transport is complex. DWD lets students search by stop, track the live bus, and see both scheduled and live ETA — so they arrive at the stop when the bus does, not 30 minutes before.</p>
+            <div class="use-case-card__quote">
+              <blockquote>"The dual ETA display is the thing students notice most. They actually trust it because it shows them the live number separately."</blockquote>
+              <cite>— Administrative Officer, Engineering College, Pune [Placeholder — replace with real testimonial]</cite>
+            </div>
+          </div>
+          <div class="use-case-card" data-animate data-animate-delay="2">
+            <div class="use-case-card__type">Company / IT Park</div>
+            <h3>HR stops managing transport. The platform does it for them.</h3>
+            <p>Employee pickup and drop across shift timings, configurable routes, and driver accountability built in. Employees use the passenger app to track their cab — HR uses the admin dashboard to verify SLAs without making a single phone call.</p>
+            <div class="use-case-card__quote">
+              <blockquote>"We cut transport-related HR tickets by over 60% in the first month. The employees just knew where their cab was."</blockquote>
+              <cite>— HR Manager, BPO Company, Hyderabad [Placeholder — replace with real testimonial]</cite>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PRICING
+         ============================================================ -->
+    <section class="pricing" id="pricing" aria-label="DWD pricing plans">
+      <div class="container">
+        <p class="section-eyebrow">Pricing</p>
+        <h2>Start small. Scale when you're ready.</h2>
+        <p class="section-subtitle" style="color: var(--color-text-light);">Every plan includes live tracking, dual ETA, and full access to driver and passenger management. No feature held back from smaller orgs.</p>
+
+        <div class="pricing__grid">
+          <div class="pricing-card" data-animate>
+            <div class="pricing-card__plan">Starter</div>
+            <div class="pricing-card__for">For smaller schools and companies just getting started with transport digitisation.</div>
+            <div class="pricing-card__limit">5</div>
+            <div class="pricing-card__limit-label">vehicles · drivers · 100 passengers · 5 routes</div>
+            <ul class="pricing-card__features">
+              <li class="pricing-card__feature">Live GPS Tracking</li>
+              <li class="pricing-card__feature">Dual ETA Intelligence</li>
+              <li class="pricing-card__feature">Route &amp; Stop Management</li>
+              <li class="pricing-card__feature">Driver &amp; Passenger Management</li>
+              <li class="pricing-card__feature">Standard Join Forms</li>
+              <li class="pricing-card__feature">Email Support</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline-dark">Get Started</a>
+          </div>
+
+          <div class="pricing-card pricing-card--featured" data-animate data-animate-delay="1">
+            <div class="pricing-card__badge">Most Popular</div>
+            <div class="pricing-card__plan">Growth</div>
+            <div class="pricing-card__for">For mid-size colleges and companies managing multiple routes across larger teams.</div>
+            <div class="pricing-card__limit" style="color: var(--color-accent);">20</div>
+            <div class="pricing-card__limit-label">vehicles · drivers · 500 passengers · 25 routes</div>
+            <ul class="pricing-card__features">
+              <li class="pricing-card__feature">Everything in Starter</li>
+              <li class="pricing-card__feature">Basic Analytics Dashboard</li>
+              <li class="pricing-card__feature">Customisable Join Forms</li>
+              <li class="pricing-card__feature">Passenger Discovery Toggle</li>
+              <li class="pricing-card__feature">Priority Email Support</li>
+              <li class="pricing-card__feature">Recurring Trip Scheduling</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary">Get Started</a>
+          </div>
+
+          <div class="pricing-card" data-animate data-animate-delay="2">
+            <div class="pricing-card__plan">Enterprise</div>
+            <div class="pricing-card__for">For large institutions and companies with multi-fleet operations and dedicated support needs.</div>
+            <div class="pricing-card__limit">∞</div>
+            <div class="pricing-card__limit-label">Unlimited vehicles, passengers, and routes</div>
+            <ul class="pricing-card__features">
+              <li class="pricing-card__feature">Everything in Growth</li>
+              <li class="pricing-card__feature">Advanced Analytics Dashboard</li>
+              <li class="pricing-card__feature">Fully Custom Join Forms</li>
+              <li class="pricing-card__feature">Dedicated Support Contact</li>
+              <li class="pricing-card__feature">Custom Onboarding Assistance</li>
+              <li class="pricing-card__feature">Priority Feature Requests</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline-dark">Contact Us</a>
+          </div>
+        </div>
+        <p class="pricing-note">All plans are currently onboarded manually. Our team will work with you to find the right fit — <a href="#contact" style="color: var(--color-accent);">reach out to get started</a>.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+         ============================================================ -->
+    <section class="faq" id="faq" aria-label="Frequently asked questions">
+      <div class="container">
+        <div class="faq__inner">
+          <p class="section-eyebrow">FAQ</p>
+          <h2 style="color: var(--color-text);">Questions we get before every demo.</h2>
+          <p class="section-subtitle" style="color: var(--color-text-muted); margin-bottom: 56px;">Straight answers. No marketing spin.</p>
+
+          <div class="faq__list">
+            <details class="faq__item">
+              <summary class="faq__question">Will our drivers actually use the app? They're not tech-savvy.</summary>
+              <div class="faq__answer">
+                <p>This was our primary design constraint. The driver app has one core screen: a Start Trip button and an End Trip button. That's it. Background GPS runs automatically the moment a trip is started — drivers don't have to think about it. Our target: the core trip action is achievable in one tap from the home screen. Most drivers are operational within 10 minutes of installing the app.</p>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">How long does setup actually take?</summary>
+              <div class="faq__answer">
+                <p>Most organisations are live within a few days of onboarding. You configure your routes, stops, and vehicles in the admin dashboard — if you already run a structured transport operation, your existing route data maps directly into DWD. Our team is available throughout setup to assist. There's no IT infrastructure to provision and no on-premise software to install.</p>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">How accurate is the Live ETA?</summary>
+              <div class="faq__answer">
+                <p>Live ETA is calculated from the driver's current GPS position and rolling average speed across the last 5 GPS pings. Our target is ±2 minutes accuracy for 70% of stops. Accuracy depends on GPS signal quality and road conditions — which is exactly why we show the Scheduled ETA simultaneously. Passengers always have a baseline even when live data is imprecise.</p>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">What happens when a driver loses GPS signal?</summary>
+              <div class="faq__answer">
+                <p>The system handles this automatically. After 30 seconds without a GPS ping, the passenger app switches to the last known location with a "Signal Lost" indicator — Live ETA is replaced by Scheduled ETA. The driver's app triggers an audio and vibration alarm prompting them to check connectivity. Admins see a real-time alert in the dashboard. When signal resumes, live tracking restores without any action from the driver.</p>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">We're a small school with only 3 buses. Is DWD right for us?</summary>
+              <div class="faq__answer">
+                <p>Yes — the Starter plan is built specifically for smaller operations (up to 5 vehicles, 5 routes, 100 passengers). You get the same live tracking and dual ETA as larger organisations. Many of our early customers are small schools that wanted professional transport visibility without paying enterprise prices or hiring a tech team.</p>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">Is our organisation's data kept private?</summary>
+              <div class="faq__answer">
+                <p>DWD is a multi-tenant platform with strict isolation enforced at the database level — no org can see another org's data, routes, passengers, or trips. All data is transmitted over HTTPS. Invitation tokens are single-use and expire within 24–72 hours. Private trips never appear in public discovery search results unless you explicitly enable it.</p>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">How do passengers join and access their trips?</summary>
+              <div class="faq__answer">
+                <p>Three ways: you can send a direct email invite, an SMS invite with a secure link, or share a unique public join link for passengers to fill in a request form. Passengers download the DWD passenger app, create an account via their invite link, and immediately see their assigned routes and trips. Unauthenticated users can still search and view discoverable trips without an account.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FINAL CTA
+         ============================================================ -->
+    <section class="final-cta" id="contact" aria-label="Get started with DWD">
+      <div class="container">
+        <div class="final-cta__inner">
+          <p class="section-eyebrow" style="text-align: center;">Ready When You Are</p>
+          <h2>Stop managing transport by phone call.</h2>
+          <p>Your drivers, passengers, and admin team deserve a system that works the way transport actually works — in real time, with data, without chaos.</p>
+          <div class="final-cta__actions">
+            <a href="mailto:hello@driveithdata.com" class="btn btn-primary btn-lg">Request a Demo</a>
+            <a href="mailto:hello@driveithdata.com" class="btn btn-ghost btn-lg">Talk to Us →</a>
+          </div>
+          <p class="final-cta__note">We personally onboard every organisation during MVP. You'll speak to a real person.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="#" class="navbar__logo" aria-label="DWD home">DWD<span class="navbar__logo-dot"></span></a>
+          <p class="footer__tagline" style="margin-top: 12px;">Better transport systems don't always need more resources — they need better understanding.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Platform</div>
+          <ul class="footer__links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#use-cases">Use Cases</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Company</div>
+          <ul class="footer__links">
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#contact">Request a Demo</a></li>
+            <li><a href="#">About DWD</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Legal</div>
+          <ul class="footer__links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 DWD. All rights reserved.</p>
+        <nav class="footer__legal" aria-label="Legal navigation">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ======================================
+    // NAVBAR: transparent → solid on scroll
+    // ======================================
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+      if (current > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      lastScroll = current;
+    }, { passive: true });
+
+    // ======================================
+    // MOBILE MENU TOGGLE
+    // ======================================
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen.toString());
+    });
+    // Close on nav link click
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target)) {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // ======================================
+    // SCROLL ANIMATIONS (IntersectionObserver)
+    // ======================================
+    const animateEls = document.querySelectorAll('[data-animate]');
+    const observerOptions = {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    animateEls.forEach(el => observer.observe(el));
+
+    // ======================================
+    // FAQ ACCORDION (enhance native details)
+    // ======================================
+    document.querySelectorAll('.faq__item').forEach(item => {
+      item.addEventListener('toggle', function() {
+        if (this.open) {
+          // Close other open items
+          document.querySelectorAll('.faq__item[open]').forEach(other => {
+            if (other !== this) other.removeAttribute('open');
+          });
+        }
+      });
+    });
+
+    // ======================================
+    // SMOOTH SCROLL (cross-browser safety)
+    // ======================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const navHeight = navbar.offsetHeight;
+          const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+          window.scrollTo({ top: targetPos, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
